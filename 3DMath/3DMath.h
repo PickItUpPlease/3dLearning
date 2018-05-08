@@ -348,3 +348,147 @@ const MATRIX2X2 IMAT_2X2 =
     1, 0,
     0, 1
 };
+
+
+//内联函数
+
+inline void VECTOR2D_ZERO(VECTOR2D_PTR v)
+{(v)->x = (v)->y = 0.0;}
+
+inline void VECTOR3D_ZERO(VECTOR3D_PTR v)
+{(v)->x = (v)->y = (v)->z = 0.0;}
+
+inline void VECTOR4D_ZERO(VECTOR4D_PTR v)
+{(v)->x = (v)->y = (v)->z = 0.0; (v)->w = 1.0;}
+
+inline void VECTOR2D_INITXY(VECTOR2D_PTR v, float x, float y)
+{(v)->x = (x); (v)->y = (y);}
+
+inline void VECTOR3D_INITXYZ(VECTOR3D_PTR v, float x, float y, float z)
+{(v)->x = (x); (v)->y = (y); (v)->z = (z);}
+
+inline void VECTOR4D_INITXYZ(VECTOR4D_PTR v, float x, float y, float z)
+{(v)->x = (x); (v)->y = (y); (v)->z = (z); (v)->w = 1.0;}
+
+inline void VECTOR2D_INIT(VECTOR2D_PTR vdst, VECTOR2D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y;}
+
+inline void VECTOR3D_INIT(VECTOR3D_PTR vdst, VECTOR3D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y; (vdst)->z = (vsrc)->z;}
+
+inline void VECTOR4D_INIT(VECTOR4D_PTR vdst, VECTOR4D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y;
+ (vdst)->z = (vsrc)->z; (vdst)->w = (vsrc)->w;}
+
+inline void VECTOR2D_COPY(VECTOR2D_PTR vdst, VECTOR2D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y;}
+
+inline void VECTOR3D_COPY(VECTOR3D_PTR vdst, VECTOR3D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y; (vdst)->z = (vsrc)->z;}
+
+inline void VECTOR4D_COPY(VECTOR4D_PTR vdst, VECTOR4D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y;
+ (vdst)->z = (vsrc)->z; (vdst)->w = (vsrc)->w;}
+
+inline void POINT2D_INIT(POINT2D_PTR vdst, POINT2D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y;}
+
+inline void POINT3D_INIT(POINT3D_PTR vdst, POINT3D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y; (vdst)->z = (vsrc)->z;}
+
+inline void POINT4D_INIT(POINT4D_PTR vdst, POINT4D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y;
+ (vdst)->z = (vsrc)->z; (vdst)->w = (vsrc)->w;}
+
+inline void POINT2D_COPY(POINT2D_PTR vdst, POINT2D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y;}
+
+inline void POINT3D_COPY(POINT3D_PTR vdst, POINT3D_PTR vsrc)
+{(vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y; (vdst)->z = (vsrc)->z;}
+
+inline void POINT4D_COPY(POINT4D_PTR vdst, POINT4D_PTR vsrc)
+{
+    (vdst)->x = (vsrc)->x; (vdst)->y = (vsrc)->y;
+    (vdst)->z = (vsrc)->z; (vdst)->w = (vsrc)->w;
+}
+
+
+#define MAT_ZERO_2X2(m) {memset((void*)(m), 0, sizeof(MATRIX2X2));}
+#define MAT_ZERO_3X3(m) {memset((void*)(m), 0, sizeof(MATRIX3X3));}
+#define MAT_ZERO_4X4(m) {memset((void*)(m), 0, sizeof(MATRIX4X4));}
+#define MAT_ZERO_4X3(m) {memset((void*)(m), 0, sizeof(MATRIX4X3));}
+
+#define MAT_IDENTITY_2X2(m) {memcpy((void*)(m), /
+    (void*)&IMAT_2X2, sizeof(MATRIX2X2));}
+
+#define MAT_IDENTITY_3X3(m) {memcpy((void*)(m), /
+    (void*)&IMAT_3X3, sizeof(MATRIX3X3));}
+
+#define MAT_IDENTITY_4X4(m) {memcpy((void*)(m), /
+    (void*)&IMAT_4X4, sizeof(MATRIX4X4));}
+
+#define MAT_IDENTITY_4X3(m) {memcpy((void*)(m), /
+    (void*)&IMAT_4X3, sizeof(MATRIX4X3));}
+
+#define MAT_COPY_2x2(src_mat, dst_mat) {memcpy((void*)(dst_mat), /
+    (void*)(src_mat), sizeof(MATRIX2X2));}
+
+#define MAT_COPY_3x3(src_mat, dst_mat) {memcpy((void*)(dst_mat), /
+    (void*)(src_mat), sizeof(MATRIX3X3));}
+
+#define MAT_COPY_4x4(src_mat, dst_mat) {memcpy((void*)(dst_mat), /
+    (void*)(src_mat), sizeof(MATRIX4X4));}
+
+#define MAT_COPY_4x3(src_mat, dst_mat) {memcpy((void*)(dst_mat), /
+    (void*)(src_mat), sizeof(MATRIX4X3));}
+
+//矩阵转置 宏
+inline void MAT_TRANSPOSE_3X3(MATRIX3X3_PTR m)
+{
+    MATRIX3X3 mt;
+    mt.M00 = m->M00; mt.M01 = m->M10; mt.M02 = m->M20;
+    mt.M10 = m->M01; mt.M11 = m->M11; mt.M12 = m->M21;
+    mt.M20 = m->M02; mt.M21 = m->M12; mt.M22 = m->M22;
+    memcpy((void*)m, (void*)&mt, sizeof(MATRIX3X3));
+}
+
+inline void MAT_TRANSPOSE_4X4(MATRIX4X4_PTR m)
+{
+    MATRIX3X3 mt;
+    mt.M00 = m->M00; mt.M01 = m->M10; mt.M02 = m->M20; mt.M03 = m->M30;
+    mt.M10 = m->M01; mt.M11 = m->M11; mt.M12 = m->M21; mt.M13 = m->M31;
+    mt.M20 = m->M02; mt.M21 = m->M12; mt.M22 = m->M22; mt.M23 = m->M32;
+    mt.M30 = m->M03; mt.M31 = m->M13; mt.M32 = m->M23; mt.M33 = m->M33;
+    memcpy((void*)m, (void*)&mt, sizeof(MATRIX3X3));
+}
+
+inline void MAT_TRANSPOSE_3X3(MATRIX3X3_PTR m, MATRIX3X3_PTR mt)
+{
+    mt->M00 = m->M00; mt->M01 = m->M10; mt->M02 = m->M20;
+    mt->M10 = m->M01; mt->M11 = m->M11; mt->M12 = m->M21;
+    mt->M20 = m->M02; mt->M21 = m->M12; mt->M22 = m->M22;
+    memcpy((void*)m, (void*)mt, sizeof(MATRIX3X3));
+}
+
+inline void MAT_TRANSPOSE_4X4(MATRIX4X4_PTR m, MATRIX4X4_PTR mt)
+{
+    mt->M00 = m->M00; mt->M01 = m->M10; mt->M02 = m->M20; mt->M03 = m->M30;
+    mt->M10 = m->M01; mt->M11 = m->M11; mt->M12 = m->M21; mt->M13 = m->M31;
+    mt->M20 = m->M02; mt->M21 = m->M12; mt->M22 = m->M22; mt->M23 = m->M32;
+    mt->M30 = m->M03; mt->M31 = m->M13; mt->M32 = m->M23; mt->M33 = m->M33;
+    memcpy((void*)m, (void*)mt, sizeof(MATRIX4X4));
+}
+
+
+// 矩阵和向量互换
+inline void MAT_COLUM_SWAP_2X2(MATRIX2X2_PTR m, int c, MATRIX1X2_PTR v)
+{ m->M[0][c]=v->M[0]; m->M[1][c]=v->M[1];}
+
+inline void MAT_COLUM_SWAP_3X3(MATRIX3X3_PTR m, int c, MATRIX1X3_PTR v)
+{ m->M[0][c]=v->M[0]; m->M[1][c]=v->M[1]; m->M[2][c]=v->M[2];}
+
+inline void MAT_COLUM_SWAP_4X4(MATRIX4X4_PTR m, int c, MATRIX1X4_PTR v)
+{ m->M[0][c]=v->M[0]; m->M[1][c]=v->M[1]; m->M[2][c]=v->M[2]; m->M[3][c]=v->M[3];}
+
+inline void MAT_COLUM_SWAP_4X3(MATRIX4X3_PTR m, int c, MATRIX1X4_PTR v)
+{ m->M[0][c]=v->M[0]; m->M[1][c]=v->M[1]; m->M[2][c]=v->M[2]; m->M[3][c]=v->M[3];}
